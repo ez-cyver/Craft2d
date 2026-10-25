@@ -1,12 +1,12 @@
 # Craft2D
 
-Ein 2D-Plattformer, entwickelt mit Java und LibGDX.
+A 2D platformer built with Java and LibGDX.
 
 ## Features
-* Schwerkraft- und Gitterbasierte Physik (Kollisionen für Boden, Decke und Wände)
-* Die Möglichkeit, sich durch Löcher zu bewegen und nach oben zu bauen
-* In Entwicklung: Custom Textures und Abbaugeschwindigkeit
+* Gravity and grid-based physics (collision detection for floor, ceiling, and walls)
+* Ability to move through gaps and build upwards
+* In Development: Custom player textures and mining speed
 
 ## Tech Stack
-* Framework: [LibGDX](https://libgdx.com/)
-* Sprache: Java
+Framework: [LibGDX](https://libgdx.com/)
+Language: Java
