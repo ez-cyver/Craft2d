@@ -20,7 +20,3 @@ Craft2D is a 2D sandbox and platformer game built using Java and LibGDX[cite: 4]
 
 * **Language:** Java[cite: 4]
 * **Framework:** LibGDX[cite: 4]
-
-## Development & AI Note
-
-AI was used at the beginning of this project to learn how Java works, understand fundamental programming concepts, and get structural guidance on setting up a LibGDX project.
