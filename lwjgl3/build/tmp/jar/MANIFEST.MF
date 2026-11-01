@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: com.bobo.craft2d.lwjgl3.Lwjgl3Launcher
+Enable-Native-Access: ALL-UNNAMED
+Multi-Release: true
+Add-Exports: java.base/jdk.internal.misc
+

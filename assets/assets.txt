@@ -1,1 +1,5 @@
+Player.png
+dirt.png
+grass.png
 libgdx.png
+stone.png
