@@ -10,9 +10,6 @@ Craft2D is a 2D sandbox and platformer game built using Java and LibGDX. You can
 
 - **Custom Physics:** Gravity and grid-based collision detection for floors, ceilings, and walls.
 
-- **Web & Desktop Support:** Built with LibGDX to run smoothly in the browser and as a desktop build.
-
-
 ## Controls
 
 - **Move:** `A` / `D` or **Arrow Keys** (Left / Right)
