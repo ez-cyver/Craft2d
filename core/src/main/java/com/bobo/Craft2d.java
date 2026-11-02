@@ -30,31 +30,23 @@ public class Craft2d extends ApplicationAdapter {
     int GROUND_HEIGHT_BLOCKS = GameData.GROUND_HEIGHT_BLOCKS; // Height of the ground in Blocks
     float groundLevel = GameData.groundLevel; // Calculate the ground level based on the floor position and height
 
-    @Override
+        @Override
     public void create() {
         shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
         Block.load();
         hotbar = new Hotbar();
         worldGrid = new int[WORLD_WIDTH][WORLD_HEIGHT];
-        for (int x = 0; x < WORLD_WIDTH; x++) {
-            for (int y = 0; y < GROUND_HEIGHT_BLOCKS; y++){
-                if (y == GROUND_HEIGHT_BLOCKS - 1) {
-                    worldGrid[x][y] = Block.GRASS;   // top layer
-                } else if (y >= GROUND_HEIGHT_BLOCKS - 5) {
-                    worldGrid[x][y] = Block.DIRT;    // 4 layers of dirt below
-                } else {
-                    worldGrid[x][y] = Block.STONE;   // everything below
-                }
-            }
-        }
+        WorldGenerator.generate(worldGrid, System.currentTimeMillis()); // every start a new world
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VIEWPORT_WIDTH_BLOCKS * tileSize, VIEWPORT_HEIGHT_BLOCKS * tileSize);
         camera.zoom = 0.5f;
-        
+
+        int spawnX = WORLD_WIDTH / 2;;
         player = new Player(
-            (GameData.WORLD_WIDTH / 2) * tileSize,
-            GameData.groundLevel + tileSize
+            spawnX * tileSize,
+            WorldGenerator.getSurfaceHeight(spawnX) * tileSize
         );
     }
 
@@ -65,8 +57,7 @@ public void render() {
     camera.position.set(player.playerX, player.playerY, 0);
     camera.update();
     hotbar.update();
-    Block.handleMouse(camera, worldGrid, tileSize, hotbar.getSelectedBlock());
-    
+    Block.handleMouse(camera, worldGrid, tileSize, hotbar.getSelectedBlock(), player);    
     Gdx.gl.glClearColor(0.5f, 0.8f, 1.0f, 1f);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -93,7 +84,7 @@ public void render() {
     int hoverX = (int) Math.floor(hoverPos.x / tileSize);
     int hoverY = (int) Math.floor(hoverPos.y / tileSize);
 
-    if (hoverX >= 0 && hoverX < WORLD_WIDTH && hoverY >= 0 && hoverY < WORLD_HEIGHT) {
+    if (hoverX >= 0 && hoverX < WORLD_WIDTH && hoverY >= 0 && hoverY < WORLD_HEIGHT&& Block.isInReach(player, hoverX, hoverY, tileSize)) {
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);

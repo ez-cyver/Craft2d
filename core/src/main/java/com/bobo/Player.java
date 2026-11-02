@@ -120,9 +120,13 @@ public class Player {
                 }
             }
         }
-        
-
-
+        // the player can't leave the world on the left or right side
+        if (playerX < 0) {
+            playerX = 0;
+        }
+        if (playerX > (WORLD_WIDTH - 1) * tileSize) {
+            playerX = (WORLD_WIDTH - 1) * tileSize;
+        }
     }
 
     //draw

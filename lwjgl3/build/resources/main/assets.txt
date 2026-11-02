@@ -1,5 +1,8 @@
 Player.png
+bedrock.png
 dirt.png
 grass.png
+leaves.png
 libgdx.png
 stone.png
+wood.png
