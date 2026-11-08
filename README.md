@@ -1,31 +1,28 @@
 # Craft2D
 
-Craft2D is a 2D sandbox and platformer game built using Java and LibGDX. You can play it directly as a web demo in your browser or run it locally, exploring a procedurally generated world where you can shape the environment.
+Craft2D is a 2D sandbox and platformer game built using Java and LibGDX.
 
 ## Features
 
-- **Procedural World Generation:** Randomly generated worlds featuring terrain and trees.
-
-- **Sandbox Gameplay:** Mine blocks, switch between block types using your hotbar, and place them back down to build structures.
-
-- **Custom Physics:** Gravity and grid-based collision detection for floors, ceilings, and walls.
+* **World Generation:** Randomly generated worlds featuring terrain, trees, and collectible blocks.
+* **Inventory System:** Full 36-slot inventory system with stack limits (up to 64 blocks), split stacks, and drag-and-drop or click-to-swap mechanics.
+* **Sandbox Gameplay:** Mine blocks, manage items in your inventory, use your hotbar, and place blocks back down to build structures.
+* **Custom Physics:** Gravity and grid-based collision detection for floors, ceilings, and walls.
 
 ## Controls
 
-- **Move:** `A` / `D` or **Arrow Keys** (Left / Right)
-
-- **Jump:** `Space`
-
-- **Sneak / Crouch:** `Shift`
-
-- **Select Block:** `1` / `2` / `3` *(Note: Wood and leaf blocks cannot be placed yet)*
-
-- **Break Block:** **Left Mouse Click**
-
-- **Place Block:** **Right Mouse Click**
-
+* **Move:** `A` / `D` or `Arrow Keys` (Left / Right)
+* **Jump:** `Space`
+* **Sneak / Crouch:** `Shift`
+* **Open Inventory:** `E`
+* **Hotbar Selection:** `1` - `9` (or click slots in the inventory)
+* **Inventory Interaction:** 
+  * **Left Click:** Take whole stack, place stack, or swap items.
+  * **Right Click:** Take half of a stack or place a single block.
+* **Break Block:** Left Mouse Click
+* **Place Block:** Right Mouse Click
 
 ## Tech Stack
 
-- **Language:** Java
-- **Framework:** LibGDX
+* **Language:** Java
+* **Framework:** LibGDX
