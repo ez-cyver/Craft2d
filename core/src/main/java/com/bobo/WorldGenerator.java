@@ -4,19 +4,19 @@ import java.util.Random;
 
 public class WorldGenerator {
 
-    // height of the ground in every column (first free block above the ground)
+    // Stores the ground surface height for each column (used for spawning and trees)
     private static int[] surfaceHeights;
 
     // creates the whole world, same seed = same world
     public static void generate(int[][] worldGrid, long seed) {
-        Random random = new Random (seed);
-        generateTerrain(worldGrid, random);
-        generateTrees(worldGrid, random);
+        Random random = new Random (seed);// Initialize a random number generator using the given seed
+        generateTerrain(worldGrid, random);// Generate the terrain (hills, bumps, bedrock, dirt, grass, and stone layers)
+        generateTrees(worldGrid, random);// Generate and place trees on top of the surface
     }
 
     //height of the ground at the column x, needed for the spwwn of the player
     public static int getSurfaceHeight(int x) {
-        return surfaceHeights[x];
+        return surfaceHeights[x];// Look up and return the height at index x
     }
 
     //terrain:hills and layers
@@ -49,7 +49,7 @@ public class WorldGenerator {
                     worldGrid[x][y] = Block.DIRT;// 4 layers of dirt below
                 }
                 else{
-                    worldGrid[x][y] = Block.STONE;// everything below
+                    worldGrid[x][y] = Block.STONE;// everything below 
                 }
 
             }
@@ -114,5 +114,3 @@ public class WorldGenerator {
         }
     }
 }
-
-

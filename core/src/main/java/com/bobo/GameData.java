@@ -21,5 +21,5 @@ public class GameData {
 
 
     public static float playerSpeed = 200f; // Speed in pixels per second
-
+    
 }

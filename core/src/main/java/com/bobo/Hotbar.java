@@ -3,78 +3,79 @@ package com.bobo;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 
 public class Hotbar {
-    // the blocks in the slots (key 1, 2, 3)
-    private int[] slots = { Block.GRASS, Block.DIRT, Block.STONE,};
-    private int selectedBlock = 1; // index of the selected slot, 1 = dirt at the beginning
 
-    private int slotSize = 48; //Size of the slot in pixels
-    private int gap = 6; //Gap between the slots in pixels
-    private int padding = 6; //space between slot border and block picture
+    private int selected = 0; // index of the selected slot (0 - 8)
 
-    //draw the hotbar, but on the screen, not in the world
-    private Matrix4 uiMatrix = new  Matrix4();
+    private int slotSize = 44; // size of one slot in pixels
+    private int gap = 5;       // space between the slots
+    private int padding = 6;   // space between the slot border and the block picture
 
+    // the hotbar is drawn on the screen and not in the world, so it needs its own matrix
+    private Matrix4 uiMatrix = new Matrix4();
 
-    //select the block in the hotbar
+    // choose the slot with the keys 1 - 9
     public void update() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
-            selectedBlock = 0;
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)){
-            selectedBlock = 1;
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)){
-            selectedBlock = 2;
+        for (int i = 0; i < Inventory.HOTBAR_SIZE; i++) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1 + i)) {
+                selected = i;
+            }
         }
     }
-    //block, that will be placed with the right click
-    public int getSelectedBlock() {
-        return slots[selectedBlock];
+
+    // the slot, whose block will be placed with the right click
+    public int getSelectedSlot() {
+        return selected;
     }
 
-    public void render(SpriteBatch batch, ShapeRenderer shapeRenderer) {
-        int screenWidth = Gdx.graphics.getWidth();
-        int screenHeight = Gdx.graphics.getHeight();
-        uiMatrix.setToOrtho2D(0, 0, screenWidth, screenHeight);
+    public void render(SpriteBatch batch, ShapeRenderer shapeRenderer, Inventory inventory, BitmapFont font) {
+        int screenW = Gdx.graphics.getWidth();
+        int screenH = Gdx.graphics.getHeight();
+        uiMatrix.setToOrtho2D(0, 0, screenW, screenH);
 
-        //place the hotbar at the center at the bottom of the screen
-        float totalWidth = slots.length * slotSize + (slots.length -1) * gap;
-        float startX = (screenWidth - totalWidth) / 2f;
-        float y = 20; //20 pixels from the bottom of the screen
+        int count = Inventory.HOTBAR_SIZE;
+        // the hotbar is centered at the bottom of the screen
+        float totalWidth = count * slotSize + (count - 1) * gap;
+        float startX = (screenW - totalWidth) / 2f;
+        float y = 20;
 
-        //dark background for the hotbar
+        // 1. dark background of the slots
         shapeRenderer.setProjectionMatrix(uiMatrix);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (int i = 0; i < slots.length; i++) {
+        shapeRenderer.setColor(0.15f, 0.15f, 0.15f, 1f);
+        for (int i = 0; i < count; i++) {
             shapeRenderer.rect(startX + i * (slotSize + gap), y, slotSize, slotSize);
         }
         shapeRenderer.end();
 
-        // the block pictures in te hotbar
+        // 2. the block pictures and the number of blocks
         batch.setProjectionMatrix(uiMatrix);
         batch.begin();
-        for (int i = 0; i < slots.length; i++) {
-            float x = startX + i * (slotSize + gap);
-            Block.draw(batch, slots[i], x + padding, y + padding, slotSize - 2 * padding);
+        for (int i = 0; i < count; i++) {
+            if (inventory.getId(i) != Block.AIR) {
+                float x = startX + i * (slotSize + gap);
+                Block.draw(batch, inventory.getId(i), x + padding, y + padding, slotSize - 2 * padding);
+                if (inventory.getAmount(i) > 1) {
+                    Inventory.drawCount(font, batch, inventory.getAmount(i), x, y, slotSize);
+                }
+            }
         }
         batch.end();
 
-        // border of the slots, the selected slot is highlighted
+        // 3. border of the slots, the selected one is white and thicker
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        for (int i = 0; i < slots.length; i++) {
+        for (int i = 0; i < count; i++) {
             float x = startX + i * (slotSize + gap);
-            if (i == selectedBlock) {
+            if (i == selected) {
                 shapeRenderer.setColor(Color.WHITE);
                 shapeRenderer.rect(x, y, slotSize, slotSize);
                 shapeRenderer.rect(x + 1, y + 1, slotSize - 2, slotSize - 2);
-            } 
-            else {
+            } else {
                 shapeRenderer.setColor(Color.GRAY);
                 shapeRenderer.rect(x, y, slotSize, slotSize);
             }

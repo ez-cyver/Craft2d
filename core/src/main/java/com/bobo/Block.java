@@ -15,13 +15,14 @@ public class Block {
     public static final int BEDROCK = 4;
     public static final int WOOD = 5;
     public static final int LEAVES = 6;
+    public static final int COUNT = 7; 
     
 
     private static Texture[] textures;
 
     //once at the beginning 
     public static  void load(){
-        textures = new Texture[7];
+        textures = new Texture[COUNT];
         textures[GRASS] = new Texture("grass.png");
         textures[DIRT] = new Texture("dirt.png");
         textures[STONE] = new Texture("stone.png");
@@ -62,7 +63,7 @@ public class Block {
     && (gridY + 1) * tileSize > player.playerY;
     }
 
-    public static void handleMouse(OrthographicCamera camera, int[][] worldGrid, int tileSize, int selectedBlock, Player player){
+    public static void handleMouse(OrthographicCamera camera, int[][] worldGrid, int tileSize, Hotbar hotbar, Inventory inventory, Player player){
     int WORLD_WIDTH = GameData.WORLD_WIDTH;
     int WORLD_HEIGHT = GameData.WORLD_HEIGHT;
     if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
@@ -74,23 +75,31 @@ public class Block {
 
         if (gridX >= 0 && gridX < WORLD_WIDTH && gridY >= 0 && gridY < WORLD_HEIGHT
             && isInReach(player, gridX, gridY, tileSize)
+            && worldGrid[gridX][gridY] != AIR
             && worldGrid[gridX][gridY] != BEDROCK) {
-            worldGrid[gridX][gridY] = AIR; // breaks the block at the clicked position
+            int id = worldGrid[gridX][gridY];
+            if (inventory.add(id)) {// the block lands in the inventory (if there is space)
+                worldGrid[gridX][gridY] = AIR;// breaks the block at the clicked position
+}
         }
     }
 
     if (Gdx.input.isButtonJustPressed(Input.Buttons.RIGHT)) {
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
-
         int gridX = (int) Math.floor(mousePos.x / tileSize);
         int gridY = (int) Math.floor(mousePos.y / tileSize);
 
+        int slot = hotbar.getSelectedSlot();
+        int selectedBlock = inventory.getId(slot);
+
         if (gridX >= 0 && gridX < WORLD_WIDTH && gridY >= 0 && gridY < WORLD_HEIGHT
-            && isInReach(player, gridX, gridY, tileSize)
-            && worldGrid[gridX][gridY] == AIR
-            && !overlapsPlayer(player, gridX, gridY, tileSize)) {
-            worldGrid[gridX][gridY] = selectedBlock; // place Block
+        && selectedBlock != AIR
+        && isInReach(player, gridX, gridY, tileSize)
+        && worldGrid[gridX][gridY] == AIR
+        && !overlapsPlayer(player, gridX, gridY, tileSize)) {
+            worldGrid[gridX][gridY] = selectedBlock;// place Block
+            inventory.removeOne(slot);// and use up one block
         }
     }
 }
