@@ -15,12 +15,15 @@ public class Block {
     public static final int BEDROCK = 4;
     public static final int WOOD = 5;
     public static final int LEAVES = 6;
-    public static final int COUNT = 7; 
+    public static final int OAKPLANKS = 7;
+    public static final int CRAFTINGTABLE = 8;
+    public static final int SICK = 9;
+    public static final int COUNT = 10; 
     
 
     private static Texture[] textures;
 
-    //once at the beginning 
+    // Once at the beginning 
     public static  void load(){
         textures = new Texture[COUNT];
         textures[GRASS] = new Texture("grass.png");
@@ -29,6 +32,9 @@ public class Block {
         textures[BEDROCK] = new Texture("bedrock.png");
         textures[WOOD] = new Texture("wood.png");
         textures[LEAVES] = new Texture("leaves.png");
+        textures[OAKPLANKS] = new Texture("OakPlanks.png");
+        textures[CRAFTINGTABLE] = new Texture("CraftingTable.png");
+        textures[SICK] = new Texture("Stick.png");
 
         for (int i = 1; i < textures.length; i++){
             textures[i].setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -37,15 +43,15 @@ public class Block {
 
     public static void draw(SpriteBatch batch, int id, float x, float y, int size){
         if (id == AIR){
-            return; // air will not be drawn
+            return; // Air will not be drawn
         }
         batch.draw(textures[id], x, y, size, size);
     }
 
-    // checks if the block is close enough to the player
+    // Checks if the block is close enough to the player
     public static boolean isInReach(Player player, int gridX, int gridY, int tileSize){
     float playerCenterX = player.playerX + tileSize / 2f;
-    float playerCenterY = player.playerY + tileSize;   // the player is 2 blocks high
+    float playerCenterY = player.playerY + tileSize;   // The player is 2 blocks high
     float blockCenterX = (gridX + 0.5f) * tileSize;
     float blockCenterY = (gridY + 0.5f) * tileSize;
 
@@ -55,7 +61,7 @@ public class Block {
     return dx * dx + dy * dy <= reach * reach;
         }
 
-    // checks if the block would be placed inside of the player
+    // Checks if the block would be placed inside of the player
     private static boolean overlapsPlayer(Player player, int gridX, int gridY, int tileSize){
     return gridX * tileSize < player.playerX + tileSize
     && (gridX + 1) * tileSize > player.playerX
@@ -77,9 +83,9 @@ public class Block {
             && isInReach(player, gridX, gridY, tileSize)
             && worldGrid[gridX][gridY] != AIR
             && worldGrid[gridX][gridY] != BEDROCK) {
-            int id = worldGrid[gridX][gridY];
-            if (inventory.add(id)) {// the block lands in the inventory (if there is space)
-                worldGrid[gridX][gridY] = AIR;// breaks the block at the clicked position
+            int id = worldGrid[gridX][gridY];// Looks up which block is at this coordinate and saves its ID(block id saved in the array Texture[COUNT];)
+            if (inventory.add(id)) {// Looks in Inventory, if ist posible to break the block (add == true)
+                worldGrid[gridX][gridY] = AIR;// Breaks the block at the clicked position
 }
         }
     }
@@ -95,11 +101,12 @@ public class Block {
 
         if (gridX >= 0 && gridX < WORLD_WIDTH && gridY >= 0 && gridY < WORLD_HEIGHT
         && selectedBlock != AIR
+        && selectedBlock != SICK
         && isInReach(player, gridX, gridY, tileSize)
         && worldGrid[gridX][gridY] == AIR
         && !overlapsPlayer(player, gridX, gridY, tileSize)) {
             worldGrid[gridX][gridY] = selectedBlock;// place Block
-            inventory.removeOne(slot);// and use up one block
+            inventory.removeOne(slot);// And use up one block
         }
     }
 }

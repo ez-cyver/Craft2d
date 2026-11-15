@@ -1,4 +1,8 @@
+CraftingTable.png
+OakPlanks.png
 Player.png
+Stick.ase
+Stick.png
 bedrock.png
 dirt.png
 grass.png

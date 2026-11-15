@@ -40,18 +40,18 @@ public class Craft2d extends ApplicationAdapter {
         inventory = new Inventory();
         hotbar = new Hotbar();
         worldGrid = new int[WORLD_WIDTH][WORLD_HEIGHT];
-        WorldGenerator.generate(worldGrid, System.currentTimeMillis()); // every start a new world
+        WorldGenerator.generate(worldGrid, System.currentTimeMillis()); // Every start a new world
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VIEWPORT_WIDTH_BLOCKS * tileSize, VIEWPORT_HEIGHT_BLOCKS * tileSize);
         camera.zoom = 0.5f;
 
 
-        //serching where to spawn the player
-        int spawnX = WORLD_WIDTH / 2;//the spawnposition in the middle of the world
+        // Serching where to spawn the player
+        int spawnX = WORLD_WIDTH / 2;// The spawnposition in the middle of the world
         player = new Player(
             spawnX * tileSize,
-            WorldGenerator.getSurfaceHeight(spawnX) * tileSize //looks how heigt the floor ist
+            WorldGenerator.getSurfaceHeight(spawnX) * tileSize // Looks how heigt the floor ist
         );
     }
 
@@ -59,7 +59,7 @@ public class Craft2d extends ApplicationAdapter {
 public void render() {
     float deltaTime = Gdx.graphics.getDeltaTime();// Get time since the last frame for frame-rate independent movement
     player.update(deltaTime, worldGrid, WORLD_HEIGHT, tileSize);//update player movment, physiks, and colisions of the world
-    //centers the camera on the middle of the player
+    // Centers the camera on the middle of the player
     camera.position.set(player.playerX, player.playerY, 0);
     camera.update();
     inventory.update();
@@ -79,17 +79,17 @@ public void render() {
     int endY = Math.min(WORLD_HEIGHT - 1, (int) ((camera.position.y + halfH) / tileSize) + 1);
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
-    for (int x = startX; x <= endX; x++) {//looks the all x cordinates, that the camera sees
-        for (int y = startY; y <= endY; y++) {//looks the all y cordinates, that the camera sees
-            Block.draw(batch, worldGrid[x][y], x * tileSize, y * tileSize, tileSize);//thakes out of the array, the cordinates of the blocks that have to be drawn 
+    for (int x = startX; x <= endX; x++) {// Looks the all x cordinates, that the camera sees
+        for (int y = startY; y <= endY; y++) {// Looks the all y cordinates, that the camera sees
+            Block.draw(batch, worldGrid[x][y], x * tileSize, y * tileSize, tileSize);// Thakes out of the array, the cordinates of the blocks that have to be drawn 
         }
     }
-    player.render(shapeRenderer, batch);//draws the player
-    batch.end(); //stops the drawing of the pictures
+    player.render(shapeRenderer, batch);// Draws the player
+    batch.end(); // Stops the drawing of the pictures
 
     //outline of the block under the mouse
-    Vector3 hoverPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);//vectore3 = cordinates of the mouse 
-    camera.unproject(hoverPos);//calculates the cordinates, so that they fit in the game window
+    Vector3 hoverPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);// Vectore3 = cordinates of the mouse 
+    camera.unproject(hoverPos);// Calculates the cordinates, so that they fit in the game window
     // Convert world pixel coordinates into block grid coordinates (floored to integers)
     int hoverX = (int) Math.floor(hoverPos.x / tileSize);
     int hoverY = (int) Math.floor(hoverPos.y / tileSize);
@@ -97,20 +97,20 @@ public void render() {
     //looks if the mouse is infide of the world and in the players reach
     if (hoverX >= 0 && hoverX < WORLD_WIDTH && hoverY >= 0 && hoverY < WORLD_HEIGHT&& Block.isInReach(player, hoverX, hoverY, tileSize)) {
         shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);//begins drawing
-        shapeRenderer.setColor(Color.BLACK);//seting color black
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);// Begins drawing
+        shapeRenderer.setColor(Color.BLACK);// Seting color black
         shapeRenderer.rect(hoverX * tileSize, hoverY * tileSize, tileSize, tileSize);//draws a square arround the block
-        shapeRenderer.end();//finishes drawing 
+        shapeRenderer.end();// Finishes drawing 
     } 
     if (inventory.isOpen()) {
-        inventory.render(batch, shapeRenderer, font); // the inventory contains the hotbar row
+        inventory.render(batch, shapeRenderer, font); // The inventory contains the hotbar row
     } else {
         hotbar.render(batch, shapeRenderer, inventory, font); // Render the hotbar UI at the bottom of the screen
     }
 }
 
 @Override
-public void dispose() {//deletes all, that was createt in the create method when stopping the game
+public void dispose() {// Deletes all, that was createt in the create method when stopping the game
     shapeRenderer.dispose();
     player.dispose();
     batch.dispose();

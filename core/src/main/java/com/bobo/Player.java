@@ -12,11 +12,11 @@ public class Player {
 
     float playerSpeed = 200f; // Speed in pixels per second
 
-    boolean facingRight = true; // true = looks right
+    boolean facingRight = true; // True = looks right
 
 
-    float velocityY = GameData.velocityY; //vertical speed of the player
-    float gravity = GameData.gravity; //gravity strength (negative value to pull down)
+    float velocityY = GameData.velocityY; // Vertical speed of the player
+    float gravity = GameData.gravity; // Gravity strength (negative value to pull down)
 
     int WORLD_HEIGHT = GameData.WORLD_HEIGHT;
     int WORLD_WIDTH = GameData.WORLD_WIDTH;
@@ -35,7 +35,7 @@ public class Player {
         this.playerX = playerX;
         this.playerY = playerY;
         
-        texture = new Texture("Player.png"); //picture of the player
+        texture = new Texture("Player.png"); // Picture of the player
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest); 
     }
 
@@ -89,7 +89,7 @@ public class Player {
         int groundCheckY = (int) ((playerY - 1) / tileSize);
             if (footGridX1 >= 0 && footGridX1 < WORLD_WIDTH && groundCheckY >= 0 && groundCheckY < WORLD_HEIGHT) {
                 if (worldGrid[footGridX1][groundCheckY] != 0) {
-                    velocityY = (float) Math.sqrt(2 * Math.abs(gravity) * (1.4f * tileSize));
+                    velocityY = (float) Math.sqrt(2 * Math.abs(gravity) * (1.1f * tileSize));
                 }
             }
         }
@@ -120,7 +120,7 @@ public class Player {
                 }
             }
         }
-        // the player can't leave the world on the left or right side
+        // The player can't leave the world on the left or right side
         if (playerX < 0) {
             playerX = 0;
         }

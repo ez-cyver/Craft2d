@@ -10,16 +10,16 @@ import com.badlogic.gdx.math.Matrix4;
 
 public class Hotbar {
 
-    private int selected = 0; // index of the selected slot (0 - 8)
+    private int selected = 0; // Index of the selected slot (0 - 9)
 
-    private int slotSize = 44; // size of one slot in pixels
-    private int gap = 5;       // space between the slots
-    private int padding = 6;   // space between the slot border and the block picture
+    private int slotSize = 44; // Size of one slot in pixels
+    private int gap = 5;       // Space between the slots
+    private int padding = 6;   // Space between the slot border and the block picture
 
-    // the hotbar is drawn on the screen and not in the world, so it needs its own matrix
+    // The hotbar is drawn on the screen and not in the world, so it needs its own matrix
     private Matrix4 uiMatrix = new Matrix4();
 
-    // choose the slot with the keys 1 - 9
+    // Choose the slot with the keys 1 - 9
     public void update() {
         for (int i = 0; i < Inventory.HOTBAR_SIZE; i++) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1 + i)) {
@@ -28,7 +28,7 @@ public class Hotbar {
         }
     }
 
-    // the slot, whose block will be placed with the right click
+    // The slot, whose block will be placed with the right click
     public int getSelectedSlot() {
         return selected;
     }
@@ -39,7 +39,7 @@ public class Hotbar {
         uiMatrix.setToOrtho2D(0, 0, screenW, screenH);
 
         int count = Inventory.HOTBAR_SIZE;
-        // the hotbar is centered at the bottom of the screen
+        // The hotbar is centered at the bottom of the screen
         float totalWidth = count * slotSize + (count - 1) * gap;
         float startX = (screenW - totalWidth) / 2f;
         float y = 20;
