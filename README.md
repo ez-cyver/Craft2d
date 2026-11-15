@@ -26,4 +26,4 @@ Craft2D is a 2D sandbox and platformer game built from scratch using Java and Li
 * **Language:** Java
 * **Framework:** LibGD
 
-*[ [![Play on itch.io]([https://kkttppr.itch.io/craft2d)](https://img.shields.io/badge/Play%20on-itch.io-red?style=for-the-badge&logo=itch.io)]((https://kkttppr.itch.io/craft2d))
+*![Play on itch.io([https://kkttppr.itch.io/craft2d)](https://img.shields.io/badge/Play%20on-itch.io-red?style=for-the-badge&logo=itch.io)]((https://kkttppr.itch.io/craft2d))
