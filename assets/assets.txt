@@ -1,12 +1,12 @@
 CraftingTable.png
+OakLeaves.png
 OakPlanks.png
 Player.png
-Stick.ase
 Stick.png
+Stone2.png
 bedrock.png
 dirt.png
 grass.png
-leaves.png
 libgdx.png
 stone.png
 wood.png
