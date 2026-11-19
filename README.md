@@ -35,14 +35,14 @@ like you see in my code (I'm sure you can do things much shorter, like the craft
 
 ### Eurekas
 * **Crafting:** When you wanted to craft planks, you were able to craft 4 planks with 2 wood and get only 4 planks(place the planks next to each other), But I found very fast a sulution: add a variable, that goes up, when you place things in the craftingtable, and only craft, when the right amount of blocks is in the craftingtable.
-* **Variables:**My settings for the game are in a certain class, and, when I wanted to change something(like world width), I had to look up in a class with 300 lines code. Also when I need a variable in another class, I had to look long, where its definied, to use it in another class. Fot that I created a cerrtain class, where all variables, that i need in more classes and are for teh game settings, are saved in their own class.
+* **Variables:**My settings for the game are in a certain class, and when I wanted to change something(like world width), I had to look up in a class with 300 lines code. Also when I need a variable in another class, I had to look long, where its definied, to use it in another class. Fot that I created a cerrtain class, where all variables, that i need in more classes and are for teh game settings, are saved in their own class.
 
 
 
 ### Rabbit-Holes
 
 * **Pick and set up the graphic library:** The first thing i've done, was setting the graphic library, and as an java beginner, I first didn't know, what that is, and it took very long, to pick the correct one and set it up to work.
-* **Physics & Colision:** (Fruher)I had a lot of bugs with the colision, like you could walt in ther blocks, or you you flighed in the air.
+* **Physics & Colision:** I had a lot of bugs with the colision, like you could walk in the blocks, or you you flighed in the air.
 With a lot of time I fixed it, with adding more If clauses. And even now is a bug, that when you jump, you can still bug trough blocks,
 but I'm mot sure, how you can do that and haven't fixed the bug yet.
 
