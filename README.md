@@ -4,6 +4,7 @@ A 2Dsandbox game insoired by Minecraft coded in java, using LibGDX. You can expl
 craftingslot in the inventory.
 
 ![Blockera Cover](BlockeraCover.png)
+
 *Don't wonder, Blockera will be the new name of the game.*
 
 
