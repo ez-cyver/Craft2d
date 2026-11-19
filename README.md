@@ -4,6 +4,7 @@ A 2Dsandbox game insoired by Minecraft coded in java, using LibGDX. You can expl
 craftingslot in the inventory.
 
 ![Blockera Cover](BlockeraCover.png)
+(Don't wonder, Blockera will be the new name of the game)
 
 
 ## What is 2D-Craft?
@@ -73,13 +74,22 @@ but I'm mot sure, how you can do that and haven't fixed the bug yet.
     (in terminal)
     ```bash
     git clone https://github.com/ez-cyver/Craft2d.git
+    ```
     (in web)
     download .zip file
 2.  **then unzip it:**
-    (in terminal): unzip Craft2D.zip -d Craft2D
+    (in terminal): 
+    ```bash
+    unzip Craft2D.zip -d Craft2D
+    ```
     (in Files): search for the file (mostly in Downloads/Craft2D), right-click it and unzip.
 3.  **go to file:**
     (in terminal)
+    ```bash
     cd ~/Downloads/Craft2D (or where you saved the game)
-4.  start game: ./gradlew lwjgl3:run
+    ```
+4.  **start game:**
+    ```bash
+    ./gradlew lwjgl3:run
+    ```
 ![Setup](Setup.png)
